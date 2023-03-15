@@ -15,10 +15,10 @@ class Exam:
         answers = {}
         for question, question_view in self.student_view.items():
             print(question_view)
+            answer = input("Enter your answer: ")
             answers[question] = answer
         return answers
-    
-    #grading the quiz
+
     def grade(self, answers):
         correct_answers = 0
         for question, answer in answers.items():
@@ -30,9 +30,9 @@ class Exam:
             passed = "Not passed!"
         else:
             passed = "Passed!"
-        return f"{correct_answers} out of {len(answers)} correct! You acheived: {grade} % : {passed}"
-    
-    # option to store the test to a file
+        return f"{correct_answers} out of {len(answers)} correct! You achieved: {grade} % : {passed}"
+
+
     def store_test(self, topic):
         with open(f'Test_{topic}_{datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.txt', "w") as file:
             for question, question_view in self.student_view.items():
@@ -46,7 +46,7 @@ if __name__ == "__main__":
     teacher = Teacher()
     student_view, answers = teacher.create_full_test()
 
-    exam = Exam(student_view, answers, store_test=True, topic=test_creator.topic)
+    exam = Exam(student_view, answers, store_test=True, topic=teacher.test_creator.topic)
     student_answers = exam.take()
     print(student_answers)
     grade = exam.grade(student_answers)
